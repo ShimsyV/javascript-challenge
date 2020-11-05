@@ -18,13 +18,10 @@ data.forEach(ufoRecord => {
         // Use d3 to append 1 cell per ufo report value 
         var cell = row.append("td");
 
-
+        // Use d3 to update each cell's text with ufo report values 
+        cell.text(value);
 
     })
-
-
-
-
 
 })
 
