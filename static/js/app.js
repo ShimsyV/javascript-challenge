@@ -14,6 +14,12 @@ data.forEach(ufoRecord => {
     // use object entries to log each ufo report value
     Object.entries(ufoRecord).forEach(([key, value]) => {
         console.log(key, value);
+
+        // Use d3 to append 1 cell per ufo report value 
+        var cell = row.append("td");
+
+
+
     })
 
 
