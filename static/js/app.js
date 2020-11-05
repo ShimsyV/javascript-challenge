@@ -4,6 +4,15 @@ var tbody = d3.select("tbody");
 // print the data from data.js
 console.log(data);
 
+// loop through data and log each object
+data.forEach(ufoRecord => {
+    console.log(ufoRecord);
+
+
+
+
+})
+
 
 
 
