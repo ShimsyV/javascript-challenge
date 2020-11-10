@@ -9,8 +9,8 @@ var tbody = d3.select("tbody");
 
 // loop through data and log each object
 // Create a function to display UFO sightings
-function tableDisplay(data) {
-    data.forEach(ufoRecord => {
+function tableDisplay(sightings) {
+    sightings.forEach(ufoRecord => {
         console.log(ufoRecord);
 
         // Use d3 to append one table row `tr` for each ufo sighting report object
@@ -32,13 +32,31 @@ function tableDisplay(data) {
 
 }
 
-tableDisplay(data)
+// Display table data
+tableDisplay(tableData)
 
-// clear the table for new data
-function deleteTable() {
-    d3.select("tbody").selectAll("tr").remove().selectAll("td").remove();
+// Filter table button
+var buttonFilter = d3.select("#filter-btn")
 
-}
+// filter the database and display
+buttonFilter.on("click", function () {
+    d3.selectAll(".ufoRecord").remove();
+
+    var inputDate = d3.select("#date").property("value");
+
+
+    console.log(inputDate);
+
+    var filteredData = tableData.filter(sightings => sightings.datetime === inputDate);
+
+
+    console.log(filteredData)
+    tableDisplay(filteredData);
+
+
+
+});
+
 
 
 
