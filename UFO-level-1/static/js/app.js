@@ -58,9 +58,9 @@ buttonFilter.on("click", function () {
     console.log(filteredData)
     tableDisplay(filteredData);
 
-
-
 });
+
+
 
 
 
