@@ -34,6 +34,12 @@ function tableDisplay(data) {
 
 tableDisplay(data)
 
+// clear the table for new data
+function deleteTable() {
+    d3.select("tbody").selectAll("tr").remove().selectAll("td").remove();
+
+}
+
 
 
 
