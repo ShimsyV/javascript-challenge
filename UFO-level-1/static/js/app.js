@@ -49,6 +49,11 @@ buttonFilter.on("click", function () {
 
     var filteredData = tableData.filter(sightings => sightings.datetime === inputDate);
 
+    // Print no records found if no records for matching date is found
+
+    if (filteredData.length == 0) {
+        d3.select("tbody").html("<h4>No Records Found</h4>");
+    };
 
     console.log(filteredData)
     tableDisplay(filteredData);
