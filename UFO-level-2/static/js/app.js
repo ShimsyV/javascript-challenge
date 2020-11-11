@@ -35,31 +35,6 @@ function tableDisplay(sightings) {
 // Display table data
 tableDisplay(tableData)
 
-// Filter table button
-var buttonFilter = d3.select("#filter-btn")
-
-// filter the database and display
-buttonFilter.on("click", function () {
-    d3.selectAll(".ufoRecord").remove();
-
-    var inputDate = d3.select("#date").property("value");
-
-
-    console.log(inputDate);
-
-    var filteredData = tableData.filter(sightings => sightings.datetime === inputDate);
-
-    // Print no records found if no records for matching date is found
-
-    if (filteredData.length == 0) {
-        d3.select("tbody").html("<h4>No Records Found</h4>");
-    };
-
-    console.log(filteredData)
-    tableDisplay(filteredData);
-
-});
-
 // Clear filter button
 var buttonClear = d3.select("#clear-btn")
 
@@ -78,426 +53,54 @@ buttonClear.on("click", function () {
 
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Filter table button
+var button = d3.select("#filter-btn");
+button.on("click", function () {
+
+    tbody.html(" ");
+
+    d3.selectAll(".ufoRecord").remove();
+
+    // Select the input date, state, shape and get the raw HTML nodes
+    var inputElement = d3.select("#input");
+    // Get the value property of the input date, state, shape
+    var inputValue = inputElement.property("value");
+    // console.log input value
+    // console.log(inputValue);
+    // Filter Data with datetime equal to input value
+    var filteredData = tableData.filter(sighting => sighting.datetime === inputValue ||
+        sighting.city === inputValue ||
+        sighting.state === inputValue ||
+        sighting.country === inputValue ||
+        sighting.shape === inputValue);
+    // console.log filter values
+    console.log(filteredData);
+
+
+    filteredData.forEach(function (selections) {
+
+        console.log(selections);
+        // Append one table row `tr` for each UFO Sighting object
+        var row = tbody.append("tr");
+        // Use `Object.entries` to console.log each UFO Sighting value
+        Object.entries(selections).forEach(function ([key, value]) {
+            console.log(key, value);
+            // Append a cell to the row for each value
+            var cell = row.append("td");
+            cell.text(value);
+        });
+    });
+
+    // display message if no records found
+    if (filteredData.length == 0) {
+        d3.select("tbody")
+            .append("tr")
+            .append("td")
+            .attr("colspan", 7)
+            .html("<h4>No Records Found</h4>");
+    };
+
+    // display the database
+    console.log(filteredData);
+    tableDisplay(filteredData);
+});

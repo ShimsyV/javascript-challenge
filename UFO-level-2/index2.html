@@ -33,30 +33,20 @@
                             <div class="panel-heading">Filter Search</div>
                             <div class="panel-body">
                                 <form>
-                                    <div class="form-group">
-                                        <ul class="list-group" id="filters">
-                                            <li class="filter list-group-item">
-                                                <label for="date">Enter a Date</label>
-                                                <input class="form-control" id="date" type="text">
-                                            </li>
-                                            <li class="filter list-group-item">
-                                                <label for="city">Enter a City</label>
-                                                <input class="form-control" id="city" type="text">
-                                            </li>
-                                            <li class="filter list-group-item">
-                                                <label for="state">Enter a State</label>
-                                                <input class="form-control" id="state" type="text">
-                                            </li>
-                                            <li class="filter list-group-item">
-                                                <label for="country">Enter a Country</label>
-                                                <input class="form-control" id="country" type="text">
-                                            </li>
-                                            <li class="filter list-group-item">
-                                                <label for="shape">Enter a Shape</label>
-                                                <input class="form-control" id="shape" type="text">
-                                            </li>
-                                        </ul>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <select type="button" class="form-control btn btn-success"
+                                                data-toggle="dropdown">
+                                                <option href="#" class="dropdown-item">Date</option>
+                                                <option href="#" class="dropdown-item">City</option>
+                                                <option href="#" class="dropdown-item">State</option>
+                                                <option href="#" class="dropdown-item">Country</option>
+                                                <option href="#" class="dropdown-item">Shape</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" id="input" class="form-control" placeholder="enter here">
                                     </div>
+
                                     <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
                                     <br>
                                     <button id="clear-btn" type="button" class="btn btn-default">Clear Filter</button>

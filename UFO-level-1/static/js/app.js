@@ -1,483 +1,72 @@
 // from data.js
 var tableData = data;
 
-// Get a reference to the table body
-var tbody = d3.select("tbody");
-
-// print the data from data.js
-// console.log(data);
-
-// loop through data and log each object
-// Create a function to display UFO sightings
-function tableDisplay(sightings) {
-    sightings.forEach(ufoRecord => {
-        console.log(ufoRecord);
-
-        // Use d3 to append one table row `tr` for each ufo sighting report object
+// function to display UFO sightings
+function tableDisplay(ufoSightings) {
+    var tbody = d3.select("tbody");
+    ufoSightings.forEach((ufoRecord) => {
         var row = tbody.append("tr");
-
-        // use object entries to log each ufo report value
         Object.entries(ufoRecord).forEach(([key, value]) => {
-            console.log(key, value);
-
-            // Use d3 to append 1 cell per ufo report value 
             var cell = row.append("td");
+            cell.html(value);
+        });
+    });
+};
 
-            // Use d3 to update each cell's text with ufo report values 
-            cell.text(value);
+// clear the table for new data
+function deleteTbody() {
+    d3.select("tbody")
+        .selectAll("tr").remove()
+        .selectAll("td").remove();
+};
 
-        })
+// initial display of all UFO sightings
+console.log(tableData);
+tableDisplay(tableData);
 
-    })
-
-}
-
-// Display table data
-tableDisplay(tableData)
-
-// Filter table button
-var buttonFilter = d3.select("#filter-btn")
+// 'Filter Table' button
+var button = d3.select("#filter-btn");
 
 // filter the database and display
-buttonFilter.on("click", function () {
-    d3.selectAll(".ufoRecord").remove();
+button.on("click", function (event) {
+    d3.event.preventDefault();
+    deleteTbody();
+    var dateInput = d3.select("#date").property("value");
 
-    var inputDate = d3.select("#date").property("value");
-
-
-    console.log(inputDate);
-
-    var filteredData = tableData.filter(sightings => sightings.datetime === inputDate);
-
-    // Print no records found if no records for matching date is found
-
-    if (filteredData.length == 0) {
-        d3.select("tbody").html("<h4>No Records Found</h4>");
+    if (dateInput.trim() === "") {
+        // display the whole database if the date field has no date
+        var filteredData = tableData;
+    } else {
+        // otherwise, display the filtered dataset  
+        var filteredData = tableData.filter(ufoSighting =>
+            ufoSighting.datetime === dateInput.trim());
     };
 
-    console.log(filteredData)
-    tableDisplay(filteredData);
+    // display message if no records found
+    if (filteredData.length == 0) {
+        d3.select("tbody")
+            .append("tr")
+            .append("td")
+            .attr("colspan", 7)
+            .html("<h4>No Records Found</h4>");
+    };
 
+    console.log(filteredData);
+    tableDisplay(filteredData);
 });
 
+// Clear filter button
+var buttonClear = d3.select("#clear-btn")
 
+// clear the inputs
+buttonClear.on("click", function () {
+    // d3.selectAll(".ufoRecord").remove();
+    // d3.select("#date").property("value", "")
 
+    d3.event.preventDefault();
+    deleteTbody();
 
+    // Display table data
+    tableDisplay(tableData)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+});
