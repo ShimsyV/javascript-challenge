@@ -38,22 +38,45 @@ tableDisplay(tableData)
 // Filter table button
 var buttonFilter = d3.select("#filter-btn")
 
-// create function to filter data
+// filter the database and display
+buttonFilter.on("click", function () {
+    d3.selectAll(".ufoRecord").remove();
 
-function filteredData(sightings) {
-
-    // assign variable values
-    var dateInput = d3.select("#date").property("value");
-    var cityInput = d3.select("#city").property("value");
-    var stateInput = d3.select("#state").property("value");
-    var countryInput = d3.select("#country").property("value");
-    var shapeInput = d3.select("#shape").property("value");
+    var inputDate = d3.select("#date").property("value");
 
 
+    console.log(inputDate);
+
+    var filteredData = tableData.filter(sightings => sightings.datetime === inputDate);
+
+    // Print no records found if no records for matching date is found
+
+    if (filteredData.length == 0) {
+        d3.select("tbody").html("<h4>No Records Found</h4>");
+    };
+
+    console.log(filteredData)
+    tableDisplay(filteredData);
+
+});
+
+// Clear filter button
+var buttonClear = d3.select("#clear-btn")
+
+// clear the inputs
+buttonClear.on("click", function () {
+    d3.selectAll(".ufoRecord").remove();
+    d3.select("#date").property("value", "")
+    d3.select("#city").property("value", "")
+    d3.select("#state").property("value", "")
+    d3.select("#country").property("value", "")
+    d3.select("#shape").property("value", "")
 
 
+    // Display table data
+    tableDisplay(tableData)
 
-}
+})
 
 
 
