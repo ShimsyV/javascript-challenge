@@ -1,8 +1,6 @@
 // from data.js
 var tableData = data;
 
-// YOUR CODE HERE!
-
 // select tags and assign them to a variable
 var tbody = d3.select("tbody");
 var buttonFilter = d3.select("#buttonFilter")
@@ -46,10 +44,7 @@ function createFilter(tableInfo) {
     var inputCountryValue = inputCountryElement.property("value");
     var inputShapeValue = inputShapeElement.property("value");
 
-    // Assign values of checked radio button to a variable.
-    //var radioChecked = d3.select('input[name="inlineRadioOptions"]:checked').node().value
 
-    //Check if Or radio button is checked, filter using 'or' operator        
 
     var finalFiltered = tableInfo.filter(incident => incident.datetime === inputDateValue || incident.city.toLowerCase() === inputCityValue.toLowerCase() ||
         incident.state.toLowerCase() === inputStateValue.toLowerCase() || incident.country.toLowerCase() === inputCountryValue.toLowerCase() ||
@@ -59,38 +54,6 @@ function createFilter(tableInfo) {
     // Return values from filter
     return finalFiltered
 
-    // // If And radio button is checked, filter fields using 'And' operator and return values.
-    // else {
-
-
-    //     if (inputDateValue !== "") {
-    //         var dateFiltered = tableInfo.filter(incident => incident.datetime === inputDateValue);
-    //     }
-    //     else { var dateFiltered = tableInfo }
-
-    //     if (inputCityValue !== "") {
-    //         var cityFiltered = dateFiltered.filter(incident => incident.city.toLowerCase() === inputCityValue.toLowerCase());
-    //     }
-    //     else { var cityFiltered = dateFiltered }
-
-    //     if (inputStateValue !== "") {
-    //         var stateFiltered = cityFiltered.filter(incident => incident.state.toLowerCase() === inputStateValue.toLowerCase());
-    //     }
-    //     else { var stateFiltered = cityFiltered }
-
-    //     if (inputCountryValue !== "") {
-    //         var countryFiltered = stateFiltered.filter(incident => incident.country.toLowerCase() === inputCountryValue.toLowerCase());
-    //     }
-    //     else { var countryFiltered = stateFiltered }
-
-    //     if (inputShapeValue !== "") {
-    //         var finalFiltered = countryFiltered.filter(incident => incident.shape.toLowerCase() === inputShapeValue.toLowerCase());
-    //     }
-    //     else { var finalFiltered = countryFiltered }
-
-
-    //     return finalFiltered
-    // };
 }
 
 // Display all data before filtering it
@@ -122,4 +85,3 @@ buttonClear.on("click", function () {
 
 
 })
-s
