@@ -1,65 +1,49 @@
 // from data.js
 var tableData = data;
+console.log(tableData);
 
-// Get a reference to the table body
+//Get a reference to the table body
 var tbody = d3.select("tbody");
 
-// print the data from data.js
-// console.log(data);
+// UFO Sighting values for each column
+tableData.forEach(function (ufoSighting) {
+    console.log(ufoSighting);
+    // Append one table row `tr` for each UFO Sighting object
+    var row = tbody.append("tr");
 
-// loop through data and log each object
-// Create a function to display UFO sightings
-function tableDisplay(sightings) {
-    sightings.forEach(ufoRecord => {
-        console.log(ufoRecord);
+    // Use `Object.entries` to console.log each UFO Sighting value
+    Object.entries(ufoSighting).forEach(function ([key, value]) {
+        console.log(key, value);
+        // Append a cell to the row for each value
+        var cell = row.append("td");
+        cell.text(value);
+    });
+});
 
-        // Use d3 to append one table row `tr` for each ufo sighting report object
-        var row = tbody.append("tr");
+// // function to display UFO sightings
+// function tableDisplay(ufoSightings) {
+//     var tbody = d3.select("tbody");
+//     ufoSightings.forEach((ufoRecord) => {
+//         var row = tbody.append("tr");
+//         Object.entries(ufoRecord).forEach(([key, value]) => {
+//             var cell = row.append("td");
+//             cell.html(value);
+//         });
+//     });
+// };
 
-        // use object entries to log each ufo report value
-        Object.entries(ufoRecord).forEach(([key, value]) => {
-            console.log(key, value);
+// clear the table for new data
+function deleteTbody() {
+    d3.select("tbody")
+        .selectAll("tr").remove()
+        .selectAll("td").remove();
+};
 
-            // Use d3 to append 1 cell per ufo report value 
-            var cell = row.append("td");
-
-            // Use d3 to update each cell's text with ufo report values 
-            cell.text(value);
-
-        })
-
-    })
-
-}
-
-// Display table data
-tableDisplay(tableData)
-
-// Clear filter button
-var buttonClear = d3.select("#clear-btn")
-
-// clear the inputs
-buttonClear.on("click", function () {
-    d3.selectAll(".ufoRecord").remove();
-    d3.select("#date").property("value", "")
-    d3.select("#city").property("value", "")
-    d3.select("#state").property("value", "")
-    d3.select("#country").property("value", "")
-    d3.select("#shape").property("value", "")
-
-
-    // Display table data
-    tableDisplay(tableData)
-
-})
-
-// Filter table button
+// Select the button
 var button = d3.select("#filter-btn");
 button.on("click", function () {
 
-    tbody.html(" ");
-
-    d3.selectAll(".ufoRecord").remove();
+    tbody.html("");
 
     // Select the input date, state, shape and get the raw HTML nodes
     var inputElement = d3.select("#input");
@@ -91,16 +75,17 @@ button.on("click", function () {
         });
     });
 
-    // display message if no records found
-    if (filteredData.length == 0) {
-        d3.select("tbody")
-            .append("tr")
-            .append("td")
-            .attr("colspan", 7)
-            .html("<h4>No Records Found</h4>");
-    };
+});
 
-    // display the database
-    console.log(filteredData);
-    tableDisplay(filteredData);
+// Clear filter button
+var buttonClear = d3.select("#clear-btn")
+
+// clear the inputs
+buttonClear.on("click", function () {
+    d3.event.preventDefault();
+    deleteTbody();
+
+    // Display table data
+    // tableDisplay(tableData)
+    console.log(tableData)
 });
